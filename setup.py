@@ -1,28 +1,43 @@
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
-# Get version and release info, which is all stored in pypcd/version.py
-ver_file = os.path.join('pypcd', 'version.py')
-with open(ver_file) as f:
-    exec(f.read())
+# Description should be a one-liner:
+description = "Pure Python PCD reader/writer"
 
-opts = dict(name=NAME,
-            maintainer=MAINTAINER,
-            maintainer_email=MAINTAINER_EMAIL,
-            description=DESCRIPTION,
-            long_description=LONG_DESCRIPTION,
-            url=URL,
-            download_url=DOWNLOAD_URL,
-            license=LICENSE,
-            classifiers=CLASSIFIERS,
-            author=AUTHOR,
-            author_email=AUTHOR_EMAIL,
-            platforms=PLATFORMS,
-            version=VERSION,
-            packages=PACKAGES,
-            package_data=PACKAGE_DATA,
-            install_requires=INSTALL_REQUIRES)
+# Long description will go up on the pypi page
+long_description = """\
+pypcd
+========
 
+Pure Python reader/writer for the PCL ``pcd`` data format for point clouds.
 
-if __name__ == '__main__':
-    setup(**opts)
+Please go to the repository README_.
+
+.. _README: https://github.com/dimatura/pypcd/blob/master/README.md
+
+License
+=======
+``pypcd`` is licensed under the terms of the MIT license. See the file
+"LICENSE" for information on the history of this software, terms & conditions
+for usage, and a DISCLAIMER OF ALL WARRANTIES.
+
+All trademarks referenced herein are property of their respective holders.
+
+Copyright (c) 2015--, Daniel Maturana
+"""
+
+setup(
+    name="pypcd",
+    version="1.0",
+    author="Daniel Maturana",
+    maintainer="Chen Yo-Cheng",
+    maintainer_email="m10715094@mail.ntust.edu.tw",
+    description=description,
+    long_description=long_description,
+    url="https://github.com/YoYo860224/pypcd",
+    license="MIT",
+    platforms="OS Independent",
+    packages=find_packages(exclude=('*tests', '*docs')),
+    package_data={'pypcd': [os.path.join('test_data', '*')]},
+    install_requires=["numpy", "lzf"]
+)
