@@ -190,16 +190,16 @@ def _build_dtype(metadata):
     """
     fieldnames = []
     typenames = []
-    for f, c, t, s in zip(metadata['fields'],
-                          metadata['count'],
-                          metadata['type'],
-                          metadata['size']):
+    for n, (f, c, t, s) in enumerate(zip(metadata['fields'],
+                                         metadata['count'],
+                                         metadata['type'],
+                                         metadata['size'])):
         np_type = pcd_type_to_numpy_type[(t, s)]
         if c == 1:
             fieldnames.append(f)
             typenames.append(np_type)
         else:
-            fieldnames.extend(['%s_%04d' % (f, i) for i in range(c)])
+            fieldnames.extend(['%d%s_%04d' % (n, f, i) for i in range(c)])
             typenames.extend([np_type]*c)
     dtype = np.dtype(list(zip(fieldnames, typenames)))
     return dtype
